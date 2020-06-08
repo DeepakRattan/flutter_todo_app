@@ -14,17 +14,6 @@ class TaskListView extends StatelessWidget {
         TaskListTile(),
         TaskListTile(),
         TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
-        TaskListTile(),
       ],
     );
   }
