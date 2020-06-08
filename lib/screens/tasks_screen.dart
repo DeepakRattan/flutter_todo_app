@@ -12,9 +12,25 @@ class TaskScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Display bottom sheet
+          /* 1. By default, the BottomSheet will take up half the screen.
+             2. For certain screen sizes, this may mean the Add button is obscured.
+                Setting the isScrolledControlled property to true you can make the modal take up the full screen
+             3. To have the AddTaskScreen sit just above the keyboard, you can wrap it
+             inside a SingleChildScrollView, which determines the padding at the bottom
+             using a MediaQuery.
+             take up the full screen: */
           showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) => AddTaskScreen());
+            isScrollControlled: true,
+            context: context,
+            builder: (context) => SingleChildScrollView(
+              // To have the AddTaskScreen sit just above the keyboard,
+              // you can wrap it inside a SingleChildScrollView, which determines the padding at the bottom using a MediaQuery.
+              child: AddTaskScreen(),
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+            ),
+          );
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(
