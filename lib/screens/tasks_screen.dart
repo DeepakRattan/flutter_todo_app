@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertodoapp/models/tasks.dart';
 import 'package:fluttertodoapp/screens/add_task_screen.dart';
 import 'package:fluttertodoapp/widgets/tasks_list_view.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
   //Widget buildBottomSheet(BuildContext context) => AddTaskScreen();
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasksList = [
+    Task(name: 'Buy Milk'),
+    Task(name: 'Buy Eggs'),
+    Task(name: 'Buy Bread'),
+    Task(name: 'Buy Rice'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +37,15 @@ class TaskScreen extends StatelessWidget {
             builder: (context) => SingleChildScrollView(
               // To have the AddTaskScreen sit just above the keyboard,
               // you can wrap it inside a SingleChildScrollView, which determines the padding at the bottom using a MediaQuery.
-              child: AddTaskScreen(),
+
+              // passing a callback to AddTaskScreen in order to receive the new task list to be added .
+              child: AddTaskScreen((newTaskTitle) {
+                print(newTaskTitle);
+                setState(() {
+                  tasksList.add(Task(name: newTaskTitle));
+                });
+                Navigator.pop(context);
+              }),
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom,
               ),
@@ -66,7 +86,7 @@ class TaskScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${tasksList.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -79,7 +99,7 @@ class TaskScreen extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               // TaskListView is custom widget for ListView
-              child: TaskListView(),
+              child: TaskListView(tasksList: tasksList),
               height: 300,
               decoration: BoxDecoration(
                 color: Colors.white,
