@@ -8,6 +8,8 @@ class TaskListTile extends StatefulWidget {
 
 class _TaskListTileState extends State<TaskListTile> {
   bool isChecked = false;
+  // The callback waits for the updated boolean value of checkbox and update the isChecked property
+  // accordingly .
   void checkBoxCallBack(bool checkBoxState) {
     setState(() {
       isChecked = checkBoxState;
@@ -42,6 +44,9 @@ class TaskCheckBox extends StatelessWidget {
       value: checkboxState,
       // We are using the "toggleCheckBoxState" callback as setState() method can not be used
       // for stateless widget
+      // When the checkbox changes,the "toggleCheckBoxState" callback is triggered and pass the latest
+      // state of the checkbox .That callback is sitting there waiting to jump into actions and pass
+      // the current state of the checkbox.So isChecked property is updated to latest values.
       onChanged: toggleCheckBoxState,
     );
   }
